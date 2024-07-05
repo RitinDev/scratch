@@ -27,7 +27,18 @@ h1:after
     border: 1px solid rgba(0, 0, 0, 0.1);
     
     width: 50%;
-    margin: 0.1em auto 0.3em auto;    
+    margin: 0.2em auto;    
+}
+
+h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.7em;
+}
+
+.underlined-text {
+  text-decoration: none;
+  border-bottom: 2px dashed rgba(0, 0, 0, 0.4);
+  padding-bottom: 1px;
 }
 
 a,
