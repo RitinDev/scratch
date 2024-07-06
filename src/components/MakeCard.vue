@@ -1,11 +1,12 @@
 <template>
     <div class="card" :style="backgroundImageStyle">
-        <textarea v-model="ScratchCardText" @input="updateText" maxlength="150" placeholder="Say Something Nice!" />
+        <textarea v-model="ScratchCardText" :style="{ color: textColor }" maxlength="150"
+            placeholder="Say Something Nice!" />
     </div>
 </template>
 
 <script>
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 
 export default {
     name: 'MakeCard',
@@ -14,6 +15,10 @@ export default {
         backgroundImage: {
             type: String,
             required: true
+        },
+        textColor: {
+            type: String,
+            default: '#000'
         }
     },
 
@@ -23,17 +28,22 @@ export default {
         }
     },
 
-    setup() {
+    setup(props, { emit }) {
         const ScratchCardText = ref('');
-        const submittedText = ref('');
 
         const updateText = () => {
-            submittedText.value = ScratchCardText.value;
+            emit('update:text', ScratchCardText.value);
         };
+
+        watch(() => props.textColor, (newColor) => {
+            const cardTextArea = document.querySelector('.card textarea');
+            if (cardTextArea) {
+                cardTextArea.style.color = newColor;
+            }
+        });
 
         return {
             ScratchCardText,
-            submittedText,
             updateText
         };
     }
