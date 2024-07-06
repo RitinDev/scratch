@@ -16,7 +16,7 @@ const props = defineProps({
     },
     textColor: {
         type: String,
-        default: '#000'
+        default: '#000000'
     }
 });
 
@@ -36,6 +36,14 @@ watch(() => props.textColor, (newColor) => {
         cardTextArea.style.color = newColor;
     }
 });
+
+watch(() => props.backgroundImage, (newImage) => {
+    const card = document.querySelector('.card');
+    if (card) {
+        card.style.backgroundImage = `url(${newImage})`;
+    }
+});
+
 </script>
 
 <style scoped>
