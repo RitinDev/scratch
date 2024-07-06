@@ -1,53 +1,41 @@
 <template>
     <div class="card" :style="backgroundImageStyle">
-        <textarea v-model="ScratchCardText" :style="{ color: textColor }" maxlength="150"
+        <textarea v-model="ScratchCardText" :style="{ color: props.textColor }" maxlength="150"
             placeholder="Say Something Nice!" />
     </div>
 </template>
 
-<script>
-import { ref, watch } from 'vue';
+<script setup>
+import { ref, watch, computed } from 'vue';
+import { defineProps, defineEmits } from 'vue';
 
-export default {
-    name: 'MakeCard',
-
-    props: {
-        backgroundImage: {
-            type: String,
-            required: true
-        },
-        textColor: {
-            type: String,
-            default: '#000'
-        }
+const props = defineProps({
+    backgroundImage: {
+        type: String,
+        required: true
     },
-
-    computed: {
-        backgroundImageStyle() {
-            return `background-image: url(${this.backgroundImage})`;
-        }
-    },
-
-    setup(props, { emit }) {
-        const ScratchCardText = ref('');
-
-        const updateText = () => {
-            emit('update:text', ScratchCardText.value);
-        };
-
-        watch(() => props.textColor, (newColor) => {
-            const cardTextArea = document.querySelector('.card textarea');
-            if (cardTextArea) {
-                cardTextArea.style.color = newColor;
-            }
-        });
-
-        return {
-            ScratchCardText,
-            updateText
-        };
+    textColor: {
+        type: String,
+        default: '#000'
     }
+});
+
+const emit = defineEmits(['update:text']);
+
+const ScratchCardText = ref('');
+
+const updateText = () => {
+    emit('update:text', ScratchCardText.value);
 };
+
+const backgroundImageStyle = computed(() => `background-image: url(${props.backgroundImage})`);
+
+watch(() => props.textColor, (newColor) => {
+    const cardTextArea = document.querySelector('.card textarea');
+    if (cardTextArea) {
+        cardTextArea.style.color = newColor;
+    }
+});
 </script>
 
 <style scoped>
