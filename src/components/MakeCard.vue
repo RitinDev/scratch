@@ -1,8 +1,7 @@
 <template>
-    <div class="card">
-        <textarea v-model="ScratchCardText" @input="updateText" placeholder="Say Something Nice!" />
+    <div class="card" :style="backgroundImageStyle">
+        <textarea v-model="ScratchCardText" @input="updateText" maxlength="150" placeholder="Say Something Nice!" />
     </div>
-    <p v-if="submittedText">Submitted Info: {{ submittedText }}</p>
 </template>
 
 <script>
@@ -10,6 +9,20 @@ import { ref } from 'vue';
 
 export default {
     name: 'MakeCard',
+
+    props: {
+        backgroundImage: {
+            type: String,
+            required: true
+        }
+    },
+
+    computed: {
+        backgroundImageStyle() {
+            return `background-image: url(${this.backgroundImage})`;
+        }
+    },
+
     setup() {
         const ScratchCardText = ref('');
         const submittedText = ref('');
@@ -35,12 +48,15 @@ body {
 
 .card {
     position: relative;
-    width: 300px;
-    height: 400px;
+    width: 400px;
+    height: 500px;
+    margin-top: 0.5em;
     overflow: hidden;
-    border: 2px dashed #ccc;
     border-radius: 6px;
     padding: 1em;
+
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 textarea {
@@ -48,11 +64,15 @@ textarea {
     height: 100%;
     resize: none;
 
-    font-size: x-large;
-    
+    font-size: 1.8rem;
+    font-weight: 700;
+
     padding: 8px;
 
     border: none;
     border-radius: 4px;
+    overflow: hidden;
+
+    background-color: transparent;
 }
 </style>
