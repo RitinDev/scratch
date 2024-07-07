@@ -11,8 +11,6 @@ const extractValuesFromURL = () => {
     ScratchCardText.value = decodeURIComponent(params.get('text') || '');
     ScratchCardImage.value = decodeURIComponent(params.get('img') || '');
     ScratchCardTextColor.value = decodeURIComponent(params.get('color') || '');
-
-    console.log(ScratchCardText.value, ScratchCardImage.value, ScratchCardTextColor.value);
 };
 
 onMounted(() => {
