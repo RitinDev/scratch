@@ -3,15 +3,29 @@ import { ref } from 'vue';
 import MakeCard from '../components/MakeCard.vue';
 import LinkIcon from '../components/icons/LinkIcon.vue';
 
-const ScratchCardTextColor = ref('#000000');
+const ScratchCardText = ref('');
 const ScratchCardImage = ref('https://images.squarespace-cdn.com/content/551a19f8e4b0e8322a93850a/1573861732601-PTWHSU2HW5BZ9C2IASCM/Intro_Parallax.gif?content-type=image%2Fgif');
+const ScratchCardTextColor = ref('#000000');
+const generatedLink = ref('');
+
+// const generateLink = () => {
+//     const baseUrl = `${window.location.href.slice(0, window.location.href.lastIndexOf('/'))}/card`;
+//     const encodedText = encodeURIComponent(ScratchCardText.value);
+//     const encodedImage = encodeURIComponent(ScratchCardImage.value);
+//     const encodedColor = encodeURIComponent(ScratchCardTextColor.value);
+//     generatedLink.value = `${baseUrl}?text=${encodedText}&img=${encodedImage}&color=${encodedColor}`;
+// };
+
+const updateText = (newText) => {
+    ScratchCardText.value = newText;
+};
 </script>
 
 <template>
     <h1>Create</h1>
     <h3>Add a message and an image to create a memorable <span class="underlined-text">scratch card</span></h3>
     <div class="container">
-        <MakeCard :backgroundImage="ScratchCardImage" :textColor="ScratchCardTextColor" />
+        <MakeCard :backgroundImage="ScratchCardImage" :textColor="ScratchCardTextColor" @update:text="updateText" />
         <div class="fields">
             <div class="color-picker">
                 <span>Text Color</span>
@@ -26,10 +40,15 @@ const ScratchCardImage = ref('https://images.squarespace-cdn.com/content/551a19f
                     </div>
                 </div>
             </div>
-            <button class="create-button">Share Card</button>
+            <button class="create-button" @click="generateLink">Share Card</button>
         </div>
     </div>
+    <div v-if="generatedLink" class="generated-link">
+        <span>Generated Link:</span>
+        <a :href="generatedLink" target="_blank">{{ generatedLink }}</a>
+    </div>
 </template>
+
 
 <style scoped>
 input[type=color] {

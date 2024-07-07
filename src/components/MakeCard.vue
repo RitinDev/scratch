@@ -1,6 +1,6 @@
 <template>
     <div class="card" :style="backgroundImageStyle">
-        <textarea v-model="ScratchCardText" :style="{ color: props.textColor }" maxlength="150"
+        <textarea v-model="ScratchCardText" @input="updateText" :style="{ color: props.textColor }" maxlength="150"
             placeholder="Say Something Nice!" />
     </div>
 </template>
@@ -43,7 +43,6 @@ watch(() => props.backgroundImage, (newImage) => {
         card.style.backgroundImage = `url(${newImage})`;
     }
 });
-
 </script>
 
 <style scoped>
