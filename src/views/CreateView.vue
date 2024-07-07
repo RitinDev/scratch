@@ -9,7 +9,7 @@ const ScratchCardTextColor = ref('#000000');
 const generatedLink = ref('');
 
 // const generateLink = () => {
-//     const baseUrl = `${window.location.href.slice(0, window.location.href.lastIndexOf('/'))}/card`;
+//     const baseUrl = `${window.location.origin}/card`;
 //     const encodedText = encodeURIComponent(ScratchCardText.value);
 //     const encodedImage = encodeURIComponent(ScratchCardImage.value);
 //     const encodedColor = encodeURIComponent(ScratchCardTextColor.value);
