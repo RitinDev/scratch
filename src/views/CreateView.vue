@@ -8,13 +8,13 @@ const ScratchCardImage = ref('https://images.squarespace-cdn.com/content/551a19f
 const ScratchCardTextColor = ref('#000000');
 const generatedLink = ref('');
 
-// const generateLink = () => {
-//     const baseUrl = `${window.location.origin}/card`;
-//     const encodedText = encodeURIComponent(ScratchCardText.value);
-//     const encodedImage = encodeURIComponent(ScratchCardImage.value);
-//     const encodedColor = encodeURIComponent(ScratchCardTextColor.value);
-//     generatedLink.value = `${baseUrl}?text=${encodedText}&img=${encodedImage}&color=${encodedColor}`;
-// };
+const generateLink = () => {
+    const baseUrl = `${window.location.origin}/card`;
+    const encodedText = encodeURIComponent(ScratchCardText.value);
+    const encodedImage = encodeURIComponent(ScratchCardImage.value);
+    const encodedColor = encodeURIComponent(ScratchCardTextColor.value);
+    generatedLink.value = `${baseUrl}?text=${encodedText}&img=${encodedImage}&color=${encodedColor}`;
+};
 
 const updateText = (newText) => {
     ScratchCardText.value = newText;
