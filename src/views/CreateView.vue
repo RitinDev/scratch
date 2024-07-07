@@ -26,6 +26,7 @@ const ScratchCardImage = ref('https://images.squarespace-cdn.com/content/551a19f
                     </div>
                 </div>
             </div>
+            <button class="create-button">Share Card</button>
         </div>
     </div>
 </template>
@@ -39,7 +40,6 @@ input[type=color] {
     overflow: hidden;
     align-self: center;
     cursor: pointer;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
 input[type=color]::-webkit-color-swatch {
@@ -60,7 +60,8 @@ input[type=color]::-webkit-color-swatch-wrapper {
     gap: 1em;
 }
 
-.color-picker, .background-image-field {
+.color-picker,
+.background-image-field {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -118,6 +119,30 @@ input[type=color]::-webkit-color-swatch-wrapper {
     padding-top: 1em;
 }
 
+.create-button {
+    display: inline-block;
+    width: 90%;
+    align-self: center;
+    margin-top: 0.5em;
+    outline: 0;
+    cursor: pointer;
+    border: none;
+    padding: 0 56px;
+    height: 45px;
+    line-height: 45px;
+    background-color: #00f3a6;
+    color: var(--text-color);
+    font-weight: 400;
+    font-size: 16px;
+    box-shadow: 0 4px 14px 0 rgba(0, 255, 119, 0.39);
+    transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.create-button:hover {
+    background: rgba(153, 255, 0, 0.834);
+    box-shadow: 0 6px 20px rgb(0 118 255 / 23%);
+}
+
 @media screen and (max-width: 800px) {
     .container {
         flex-direction: column;
@@ -130,7 +155,7 @@ input[type=color]::-webkit-color-swatch-wrapper {
         gap: 2em;
         width: 80%;
         justify-content: space-around;
+        flex-wrap: wrap;
     }
-
 }
 </style>
