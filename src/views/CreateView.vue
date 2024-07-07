@@ -8,6 +8,7 @@ const ScratchCardText = ref('');
 const ScratchCardImage = ref('https://images.squarespace-cdn.com/content/551a19f8e4b0e8322a93850a/1573861732601-PTWHSU2HW5BZ9C2IASCM/Intro_Parallax.gif?content-type=image%2Fgif');
 const ScratchCardTextColor = ref('#000000');
 const generatedLink = ref('');
+const copyMessage = ref('');
 
 const generateLink = () => {
     const baseUrl = `${window.location.origin}/card`;
@@ -16,7 +17,12 @@ const generateLink = () => {
     const encodedColor = encodeURIComponent(ScratchCardTextColor.value);
     generatedLink.value = `${baseUrl}?text=${encodedText}&img=${encodedImage}&color=${encodedColor}`;
 
-    navigator.clipboard.writeText(generatedLink.value);
+    navigator.clipboard.writeText(generatedLink.value).then(() => {
+        copyMessage.value = 'Link copied to clipboard!';
+        setTimeout(() => {
+            copyMessage.value = '';
+        }, 2000); // message disappears after 2 seconds
+    });
 };
 
 const updateText = (newText) => {
@@ -46,14 +52,10 @@ const updateText = (newText) => {
             <button class="create-button" @click="generateLink">
                 <CopyIcon width="15" height="15" /> Share Card
             </button>
+            <p v-if="copyMessage" class="copy-message">{{ copyMessage }}</p>
         </div>
     </div>
-    <!-- <div v-if="generatedLink" class="generated-link">
-        <span>Generated Link:</span>
-        <a :href="generatedLink" target="_blank">{{ generatedLink }}</a>
-    </div> -->
 </template>
-
 
 <style scoped>
 input[type=color] {
@@ -165,6 +167,13 @@ input[type=color]::-webkit-color-swatch-wrapper {
 .create-button:hover {
     background: rgba(153, 255, 0, 0.834);
     box-shadow: 0 6px 20px rgb(0 118 255 / 23%);
+}
+
+.copy-message {
+    color: green;
+    font-size: 0.9em;
+    text-align: center;
+    text-transform: capitalize;
 }
 
 @media screen and (max-width: 800px) {
