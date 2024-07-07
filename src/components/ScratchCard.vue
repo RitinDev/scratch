@@ -1,35 +1,46 @@
 <template>
-    <div class="scratch-card">
-        <img :src="imageSrc" alt="Hidden Image" class="hidden-image" ref="hiddenImage">
+    <div class="card" :style="backgroundImageStyle">
         <canvas class="scratch-canvas" ref="scratchCanvas"></canvas>
+        <div class="card-text" :style="{ color: props.textColor }">{{ props.text }}</div>
     </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 
 const props = defineProps({
-    imageSrc: {
+    backgroundImage: {
+        type: String,
+        required: true
+    },
+    textColor: {
+        type: String,
+        default: '#000000'
+    },
+    text: {
         type: String,
         required: true
     }
 });
 
-const hiddenImage = ref(null);
 const scratchCanvas = ref(null);
+
+const backgroundImageStyle = computed(() => ({
+    backgroundImage: `url(${props.backgroundImage})`,
+}));
 
 onMounted(() => {
     const canvas = scratchCanvas.value;
     const ctx = canvas.getContext('2d');
-    const image = hiddenImage.value;
 
-    image.onload = () => {
-        canvas.width = image.width;
-        canvas.height = image.height;
-
+    const initializeCanvas = () => {
+        canvas.width = canvas.offsetWidth;
+        canvas.height = canvas.offsetHeight;
         ctx.fillStyle = '#888';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
     };
+
+    initializeCanvas();
 
     const getMousePos = (canvas, evt) => {
         const rect = canvas.getBoundingClientRect();
@@ -86,19 +97,33 @@ body {
     align-items: center;
 }
 
-.scratch-card {
+.card {
     position: relative;
-    width: 300px;
-    height: 400px;
+    width: 400px;
+    height: 500px;
     margin-top: 0.5em;
     overflow: hidden;
     border-radius: 6px;
+    padding: 1em;
     box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
-.hidden-image {
+.card-text {
+    position: absolute;
     width: 100%;
     height: 100%;
+    padding: 8px;
+    font-size: 2rem;
+    font-weight: 700;
+    border: none;
+    border-radius: 4px;
+    background-color: transparent;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    z-index: 1; /* Ensure the text is below the canvas */
 }
 
 .scratch-canvas {
@@ -108,5 +133,7 @@ body {
     width: 100%;
     height: 100%;
     cursor: pointer;
+    z-index: 2;
+    /* Ensure the canvas is above the text */
 }
 </style>
