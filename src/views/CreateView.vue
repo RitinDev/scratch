@@ -10,6 +10,21 @@ const ScratchCardTextColor = ref('#000000');
 const generatedLink = ref('');
 const copyMessage = ref('');
 
+const copyToClipboardFallback = (text) => {
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    document.body.appendChild(textarea);
+    textarea.select();
+    try {
+        document.execCommand('copy');
+        copyMessage.value = 'Link copied to clipboard!';
+    } catch (err) {
+        console.error('Fallback copy failed: ', err);
+        copyMessage.value = 'Failed to copy link';
+    }
+    document.body.removeChild(textarea);
+};
+
 const generateLink = () => {
     const baseUrl = `${window.location.origin}/card`;
     const encodedText = encodeURIComponent(ScratchCardText.value);
@@ -17,12 +32,18 @@ const generateLink = () => {
     const encodedColor = encodeURIComponent(ScratchCardTextColor.value);
     generatedLink.value = `${baseUrl}?text=${encodedText}&img=${encodedImage}&color=${encodedColor}`;
 
-    navigator.clipboard.writeText(generatedLink.value).then(() => {
-        copyMessage.value = 'Link copied to clipboard!';
-        setTimeout(() => {
-            copyMessage.value = '';
-        }, 2000); // message disappears after 2 seconds
-    });
+    if (navigator.clipboard) {
+        navigator.clipboard.writeText(generatedLink.value).then(() => {
+            copyMessage.value = 'Link copied to clipboard!';
+            setTimeout(() => {
+                copyMessage.value = '';
+            }, 2000); // message disappears after 2 seconds
+        }).catch(() => {
+            copyToClipboardFallback(generatedLink.value);
+        });
+    } else {
+        copyToClipboardFallback(generatedLink.value);
+    }
 };
 
 const updateText = (newText) => {
@@ -49,7 +70,7 @@ const updateText = (newText) => {
                     </div>
                 </div>
             </div>
-            <button class="create-button" @click="generateLink">
+            <button class="create-button" @click="generateLink" @touchstart="generateLink" @touchend="generateLink">
                 <CopyIcon width="15" height="15" /> Share Card
             </button>
             <p v-if="copyMessage" class="copy-message">{{ copyMessage }}</p>
