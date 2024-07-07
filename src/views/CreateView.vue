@@ -26,7 +26,7 @@ const copyToClipboardFallback = (text) => {
 };
 
 const generateLink = () => {
-    const baseUrl = `${window.location.origin}/card`;
+    const baseUrl = `${window.location.origin}/scratch/card`;
     const encodedText = encodeURIComponent(ScratchCardText.value);
     const encodedImage = encodeURIComponent(ScratchCardImage.value);
     const encodedColor = encodeURIComponent(ScratchCardTextColor.value);
