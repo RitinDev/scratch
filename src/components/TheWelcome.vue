@@ -6,6 +6,8 @@ import EcosystemIcon from './icons/IconEcosystem.vue'
 import CommunityIcon from './icons/IconCommunity.vue'
 import SupportIcon from './icons/IconSupport.vue'
 import LinkIcon from './icons/LinkIcon.vue'
+
+import { RouterLink } from 'vue-router'
 </script>
 
 <template>
@@ -15,8 +17,7 @@ import LinkIcon from './icons/LinkIcon.vue'
     </template>
     <template #heading>Create a Card</template>
 
-    <a href="/create" target="_blank" rel="noopener">Create a scratch card</a>
-    with a personalized message and image of your choice.
+    <RouterLink to="/create">Create a scratch card</RouterLink>with a personalized message and image of your choice.
   </WelcomeItem>
 
   <WelcomeItem>
