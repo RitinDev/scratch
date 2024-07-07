@@ -45,6 +45,8 @@ watch(() => props.backgroundImage, (newImage) => {
 </script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+
 body {
     justify-content: center;
     align-items: center;
@@ -70,6 +72,7 @@ textarea {
 
     font-size: 1.8rem;
     font-weight: 700;
+    font-family: "Raleway", sans-serif;
 
     padding: 8px;
 

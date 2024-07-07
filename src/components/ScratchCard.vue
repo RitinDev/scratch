@@ -92,6 +92,8 @@ onMounted(() => {
 </script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+
 body {
     justify-content: center;
     align-items: center;
@@ -116,8 +118,9 @@ body {
     width: 100%;
     height: 100%;
     padding: 8px;
-    font-size: 2rem;
+    font-size: 1.8rem;
     font-weight: 700;
+    font-family: 'Raleway', sans-serif;
     border: none;
     border-radius: 4px;
     background-color: transparent;
