@@ -2,6 +2,7 @@
 import { ref } from 'vue';
 import MakeCard from '../components/MakeCard.vue';
 import LinkIcon from '../components/icons/LinkIcon.vue';
+import CopyIcon from '../components/icons/CopyIcon.vue';
 
 const ScratchCardText = ref('');
 const ScratchCardImage = ref('https://images.squarespace-cdn.com/content/551a19f8e4b0e8322a93850a/1573861732601-PTWHSU2HW5BZ9C2IASCM/Intro_Parallax.gif?content-type=image%2Fgif');
@@ -14,6 +15,8 @@ const generateLink = () => {
     const encodedImage = encodeURIComponent(ScratchCardImage.value);
     const encodedColor = encodeURIComponent(ScratchCardTextColor.value);
     generatedLink.value = `${baseUrl}?text=${encodedText}&img=${encodedImage}&color=${encodedColor}`;
+
+    navigator.clipboard.writeText(generatedLink.value);
 };
 
 const updateText = (newText) => {
@@ -40,13 +43,15 @@ const updateText = (newText) => {
                     </div>
                 </div>
             </div>
-            <button class="create-button" @click="generateLink">Share Card</button>
+            <button class="create-button" @click="generateLink">
+                <CopyIcon width="15" height="15" /> Share Card
+            </button>
         </div>
     </div>
-    <div v-if="generatedLink" class="generated-link">
+    <!-- <div v-if="generatedLink" class="generated-link">
         <span>Generated Link:</span>
         <a :href="generatedLink" target="_blank">{{ generatedLink }}</a>
-    </div>
+    </div> -->
 </template>
 
 
