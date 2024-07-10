@@ -20,6 +20,6 @@ onMounted(() => {
 
 <template>
     <h1>Card</h1>
-    <h3><span class="underlined-text">Swipe</span> for a pleasant surprise</h3>
+    <h3><span class="underlined-text">Scratch the card</span> for a pleasant surprise</h3>
     <ScratchCard :text="ScratchCardText" :backgroundImage="ScratchCardImage" :textColor="ScratchCardTextColor" />
 </template>

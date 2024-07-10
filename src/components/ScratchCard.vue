@@ -62,7 +62,7 @@ onMounted(() => {
     const scratch = (x, y) => {
         ctx.globalCompositeOperation = 'destination-out';
         ctx.beginPath();
-        ctx.arc(x, y, 20, 0, 2 * Math.PI, false);
+        ctx.arc(x, y, 40, 0, 2 * Math.PI, false);
         ctx.fill();
     };
 
